@@ -18,4 +18,18 @@ iface ens33 inet static
         gateway 172.16.0.254
         dns-nameservers 1.1.1.1
 ```
+## 2. Renommer la machine
+Éditez le fichier /etc/hostname
+```bash
+srv-web1
+```
+Éditez le fichier /etc/hosts
+```bash
+127.0.0.1       localhost
+127.0.1.1       srv-web1
 
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+```

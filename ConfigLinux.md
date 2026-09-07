@@ -33,3 +33,8 @@ srv-web1
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ```
+## 3. Configurer le DNS
+Éditez le fichier /etc/resolv.conf
+```bash
+nameserver 1.1.1.1
+```

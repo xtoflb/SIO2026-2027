@@ -1,0 +1,29 @@
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Fichiers temporaires et sauvegardes
+*.tmp
+*.bak
+*.swp
+*~
+
+# Journaux
+*.log
+
+# Secrets et variables locales
+.env
+.env.*
+*.key
+*.pem
+*.pfx
+*.p12
+id_rsa
+id_ed25519
+
+# Dossiers de build ou de cache
+site/
+.cache/
+
+# Réglages locaux de VSCodium / VS Code
+.vscode/settings.json

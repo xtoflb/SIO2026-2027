@@ -1,5 +1,5 @@
 # Configuration de base d'une machine Linux
-## 1. Configuration IP
+## 1. Configuration IP2
 Éditez le fichier /etc/network/interfaces
 ```bash
 # This file describes the network interfaces available on your system

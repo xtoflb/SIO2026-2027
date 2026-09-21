@@ -1,4 +1,4 @@
-# Installation et configuration des VMware tools sur une VM Linux
+# Installation et configuration des VMware tools sur une VM Linux - TEST 21/09/2026
 1. Installation des VMware tools sur la VM Linux
 ```bash
 apt update

@@ -209,28 +209,14 @@ Vous devez voir dans la barre latérale :
 
 ---
 
-## 6. Extensions recommandées
+## 6. Résolution des problèmes
 
-VSCodium utilise généralement le registre Open VSX. La disponibilité exacte peut varier selon la version de l’extension.
+Si git n'utilise pas le bon service ssh sur votre PC :
 
-Recherchez ces extensions avec `Ctrl+Shift+X` :
-
-| Extension | Utilité |
-|---|---|
-| **Markdown All in One** | Raccourcis Markdown, table des matières, amélioration de la rédaction |
-| **markdownlint** | Détection d’erreurs de style et de structure Markdown |
-| **Markdown Preview Enhanced** | Aperçu enrichi, diagrammes Mermaid et options de rendu supplémentaires |
-| **YAML** | Aide pour les fichiers de configuration YAML : MkDocs, GitHub Actions, Ansible |
-| **EditorConfig** | Respect de règles communes d’encodage et de formatage |
-| **GitLens** | Historique Git détaillé, auteurs des lignes et comparaisons, si disponible dans votre registre |
-
-L’aperçu Markdown de base est déjà intégré à la famille VS Code/VSCodium. Ouvrez un fichier `.md`, puis utilisez :
-
-- `Ctrl+Shift+V` : ouvrir l’aperçu Markdown ;
-- `Ctrl+K`, puis `V` : ouvrir l’aperçu à côté de l’éditeur ;
-- `Ctrl+Shift+P`, puis `Markdown: Open Preview to the Side` : autre méthode pour obtenir un affichage côte à côte.
-
----
+```powershell
+git config --global core.sshCommand "C:/Windows/System32/OpenSSH/ssh.exe"
+git config --global ssh.variant ssh
+```
 
 ## 7. Structure conseillée du dépôt
 

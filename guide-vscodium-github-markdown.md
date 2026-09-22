@@ -211,7 +211,7 @@ Vous devez voir dans la barre latérale :
 
 ## 6. Résolution des problèmes
 
-Si git n'utilise pas le bon service ssh sur votre PC :
+Si git n'utilise pas le bon service ssh sur votre PC (différence entre le client SSH utilisé directement dans PowerShell et celui que Git sélectionne par défaut) :
 
 ```powershell
 git config --global core.sshCommand "C:/Windows/System32/OpenSSH/ssh.exe"

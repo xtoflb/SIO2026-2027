@@ -1,7 +1,9 @@
 # Génération de la clé
+```bash
 corosync-keygen
-
+```
 # Modfication du fichier /etc/corosync/corosync.conf
+```
 node {
                 # Hostname of the node
                 name: glpi1
@@ -15,6 +17,7 @@ node {
                 nodeid: 2
                 ring0_addr: 172.16.0.62
         }
+```
 
 # Création des ressources
 crm configure primitive IPFailover ocf:heartbeat:IPaddr2 params ip=172.16.0.60 cidr_netmask=24 nic=ens33 iflabel=VIP

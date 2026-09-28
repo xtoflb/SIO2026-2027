@@ -51,6 +51,7 @@ grant all privileges on glpi.* to 'glpi'@'localhost' identified by 'Btssio2017';
 tar -xvf site.tar.gz
 mysql -u root -p glpi < dump_glpi.sql
 ```
+# Mise en place de la réplication
 ## Sur glpi1
 ```sql
 grant replication slave on *.* to 'replicateur'@'%' identified by 'Btssio2017';

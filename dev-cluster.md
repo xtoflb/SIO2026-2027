@@ -53,6 +53,17 @@ mysql -u root -p glpi < dump_glpi.sql
 ```
 # Mise en place de la réplication
 ## Sur glpi1
+Création du dossier /var/log/mysql
+```bash
+mkdir /var/log/mysql
+```
+Modification de la configuration SQL dans /etc/mysql/maridb.conf.d/50-srvr.cnf
+```
+#bind-address = 127.0.0.1
+
+
+
+```
 ```sql
 grant replication slave on *.* to 'replicateur'@'%' identified by 'Btssio2017';
 show master status;

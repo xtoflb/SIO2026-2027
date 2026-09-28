@@ -76,7 +76,6 @@ show master status;
 ## Sur glpi2
 Modification de la configuration SQL dans /etc/mysql/mariadb.conf.d/50-server.cnf
 ```
-#bind-address = 127.0.0.1
 server-id              = 2
 expire_logs_days        = 10
 max_binlog_size        = 100M

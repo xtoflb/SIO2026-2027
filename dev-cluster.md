@@ -51,9 +51,13 @@ grant all privileges on glpi.* to 'glpi'@'localhost' identified by 'Btssio2017';
 tar -xvf site.tar.gz
 mysql -u root -p glpi < dump_glpi.sql
 ```
-
+## Sur glpi1
+```sql
 grant replication slave on *.* to 'replicateur'@'%' identified by 'Btssio2017';
 show master status;
+```
+## Sur glpi2
+```sql
 change master to master_host='172.16.0.61', master_user='replicateur', master_password='Btssio2017', master_log_file='mysql-bin.000001', master_log_pos=328;
 start slave;
-unlock tables;
+```

@@ -56,6 +56,7 @@ mysql -u root -p glpi < dump_glpi.sql
 Création du dossier /var/log/mysql
 ```bash
 mkdir /var/log/mysql
+chmod 777 /var/log/mysql
 ```
 Modification de la configuration SQL dans /etc/mysql/mariadb.conf.d/50-server.cnf
 ```

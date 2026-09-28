@@ -57,12 +57,15 @@ Création du dossier /var/log/mysql
 ```bash
 mkdir /var/log/mysql
 ```
-Modification de la configuration SQL dans /etc/mysql/maridb.conf.d/50-srvr.cnf
+Modification de la configuration SQL dans /etc/mysql/mariadb.conf.d/50-server.cnf
 ```
 #bind-address = 127.0.0.1
-
-
-
+log_error = /var/log/mysql/error.log
+server-id              = 1
+log_bin                = /var/log/mysql/mysql-bin.log
+expire_logs_days        = 10
+max_binlog_size        = 100M
+binlog_do_db    = glpi
 ```
 ```sql
 grant replication slave on *.* to 'replicateur'@'%' identified by 'Btssio2017';

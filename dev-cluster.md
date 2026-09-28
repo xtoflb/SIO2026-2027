@@ -34,7 +34,7 @@ crm configure group servweb IPFailover serviceWeb meta migration-threshold="5"
 create database glpi;
 grant all privileges on glpi.* to 'glpi'@'localhost' identified by 'Btssio2017';
 ```
-# Copie des copies sur glpi2
+# Copie des fichiers sur glpi2 (BDD et web)
 ```bash
 tar -czvf site.tar.gz glpi/
 scp site.tar.gz etudiant@172.16.0.62:/home/etudiant/

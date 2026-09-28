@@ -68,6 +68,7 @@ expire_logs_days        = 10
 max_binlog_size        = 100M
 binlog_do_db    = glpi
 ```
+Création d'un compte de réplication sur glpi1
 ```sql
 grant replication slave on *.* to 'replicateur'@'%' identified by 'Btssio2017';
 show master status;

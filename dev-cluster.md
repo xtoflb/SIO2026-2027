@@ -43,6 +43,10 @@ mysqldump -u root -p --databases glpi > dump_glpi.sql
 scp dump_glpi.sql etudiant@172.16.0.62:/home/etudiant/
 ```
 ## Sur glpi2
+```sql
+create database glpi;
+grant all privileges on glpi.* to 'glpi'@'localhost' identified by 'Btssio2017';
+```
 ```bash
 tar -xvf site.tar.gz
 mysql -u root -p glpi < dump_glpi.sql

@@ -19,6 +19,7 @@ Get-ChildItem -Path $dossier -ErrorAction SilentlyContinue -Recurse | `
 Write-Host -foregroundcolor yellow "le fichier $cherche est présent dans $nbfichier dossiers" 
 ```
 ## Script 2
+```powershell
 <#-------------------------------------------------------------------
 Apprentissage PowerShell - Script n° 2
 Auteur CLB – 28/09/2026
@@ -32,3 +33,4 @@ Get-ChildItem -Path $dossier -Recurse -Force -ErrorAction SilentlyContinue | `
         $total = $_.sum / 1MB
         write-host -foregroundColor yellow ("le dossier "+$dossier+" contient {0:#,##0.0} MB" -f $total)
  }
+```

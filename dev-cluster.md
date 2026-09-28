@@ -22,7 +22,7 @@ node {
 # Création des ressources
 ```bash
 crm configure property stonith-enabled=false
-crm configure property no-quorum-policy="ignore
+crm configure property no-quorum-policy="ignore"
 crm configure primitive IPFailover ocf:heartbeat:IPaddr2 params ip=172.16.0.60 cidr_netmask=24 nic=ens33 iflabel=VIP
 crm resource move IPFailover glpi1
 crm configure primitive serviceWeb lsb:apache2 op monitor interval=60s op start interval=0 timeout=60s op stop interval=0 timeout=60s

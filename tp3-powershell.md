@@ -67,11 +67,17 @@ ipcsv ".\utilisateurs sodecaf.csv" -Delimiter ";" | foreach {
     $trigramme = $triGramme.toUpper()
    
     $agence = $_.agency
+    # chemin absolu du dossier de chaque utilisateur
+    $dossier = "D:\"+$agence+"\fic_"+$triGramme
 
     if ((Test-Path -Path ("D:\"+$agence)) -eq $false) {
         New-Item -Path "D:\" -Name $agence -ItemType "Directory"
     }
     
+   if ((Test-Path -Path ($dossier)) -eq $false) {
+        New-Item -Path $dossier -ItemType "Directory"
+    }
+
     $couleur = switch ($_.function) {
         "informatique" {"cyan"}
         "comptable" {"yellow"}

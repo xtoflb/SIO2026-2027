@@ -29,13 +29,18 @@ crm configure primitive serviceWeb lsb:apache2 op monitor interval=60s op start 
 crm configure group servweb IPFailover serviceWeb meta migration-threshold="5"
 ```
 
-MariaDB [(none)]> create database glpi;
-MariaDB [(none)]> grant all privileges on glpi.* to 'glpi'@'localhost' identified by 'Btssio2017';
-
+# Création de la BDD et de l'utilisateur
+```sql
+create database glpi;
+grant all privileges on glpi.* to 'glpi'@'localhost' identified by 'Btssio2017';
+```
+# Copie des copies sur glpi2
+```bash
 tar -czvf site.tar.gz glpi/
 scp site.tar.gz etudiant@172.16.0.62:/home/etudiant/
 mysqldump -u root -p --databases glpi > dump_glpi.sql
 mysql -u root -p glpi < dump_glpi.sql
+```
 
 grant replication slave on *.* to 'replicateur'@'%' identified by 'Btssio2017';
 show master status;

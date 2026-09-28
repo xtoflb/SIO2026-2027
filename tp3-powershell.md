@@ -33,7 +33,8 @@ Get-ChildItem -Path $dossier -Recurse -Force -ErrorAction SilentlyContinue | `
         ForEach-Object {
         $total = $_.sum / 1MB
         write-host -foregroundColor yellow ("le dossier "+$dossier+" contient {0:#,##0.0} MB" -f $total)
- }```
+ }
+```
 ## Script 3
 ```powershell
 <#-------------------------------------------------------------------

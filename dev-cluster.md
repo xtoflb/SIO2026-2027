@@ -44,6 +44,7 @@ scp dump_glpi.sql etudiant@172.16.0.62:/home/etudiant/
 ```
 ## Sur glpi2
 ```bash
+tar -xvf site.tar.gz
 mysql -u root -p glpi < dump_glpi.sql
 ```
 

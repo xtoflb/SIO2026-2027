@@ -34,3 +34,13 @@ Get-ChildItem -Path $dossier -Recurse -Force -ErrorAction SilentlyContinue | `
         $total = $_.sum / 1MB
         write-host -foregroundColor yellow ("le dossier "+$dossier+" contient {0:#,##0.0} MB" -f $total)
  }```
+## Script 3
+```powershell
+<#-------------------------------------------------------------------
+Apprentissage PowerShell - Script n° 3
+Auteur CLB – 28/09/2026
+---------------------------------------------------------------------#>
+$invite = "saisissez une couleur"
+$couleur = Read-Host $invite
+Write-Host -ForegroundColor $couleur ("vous avez demandé à écrire en "+$couleur)
+```

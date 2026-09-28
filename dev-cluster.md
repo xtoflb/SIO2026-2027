@@ -83,6 +83,7 @@ master-retry-count  = 20
 replicate-do-db = glpi
 ```
 ```sql
+stop slave;
 change master to master_host='172.16.0.61', master_user='replicateur', master_password='Btssio2017', master_log_file='mysql-bin.000001', master_log_pos=328;
 start slave;
 ```

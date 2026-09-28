@@ -2,7 +2,7 @@
 ```bash
 corosync-keygen
 ```
-# Modfication du fichier /etc/corosync/corosync.conf
+# Modification du fichier /etc/corosync/corosync.conf
 ```
 node {
                 # Hostname of the node
@@ -20,10 +20,12 @@ node {
 ```
 
 # Création des ressources
+```bash
 crm configure primitive IPFailover ocf:heartbeat:IPaddr2 params ip=172.16.0.60 cidr_netmask=24 nic=ens33 iflabel=VIP
 crm resource move IPFailover glpi1
 crm configure primitive serviceWeb lsb:apache2 op monitor interval=60s op start interval=0 timeout=60s op stop interval=0 timeout=60s
 crm configure group servweb IPFailover serviceWeb meta migration-threshold="5"
+```
 
 MariaDB [(none)]> create database glpi;
 MariaDB [(none)]> grant all privileges on glpi.* to 'glpi'@'localhost' identified by 'Btssio2017';

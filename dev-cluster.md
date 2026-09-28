@@ -57,7 +57,7 @@ Création du dossier /var/log/mysql
 ```bash
 mkdir /var/log/mysql
 ```
-Modification de la configuration SQL dans /etc/mysql/mariadb.conf.d/50-server.cnf
+Modification de la configuration SQL dans /etc/mysql/mariadb.conf.d/50-server.cnf
 ```
 #bind-address = 127.0.0.1
 log_error = /var/log/mysql/error.log

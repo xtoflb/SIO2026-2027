@@ -55,3 +55,23 @@ while ($couleur -ne 'stop') {
     }
 }
 ```
+## Script sodecaf.ps1
+```powershell
+<#-------------------------------------------------------------------
+Apprentissage PowerShell - Script sodecaf.ps1
+Auteur CLB – 28/09/2026
+---------------------------------------------------------------------#>
+ipcsv ".\utilisateurs sodecaf.csv" -Delimiter ";" | foreach {
+    $triGramme=$_.firstname.substring(0,1)+$_.lastname.substring(0,1)
+    $triGramme = $triGramme + $_.lastname.substring($_.lastname.length-1,1)
+    $trigramme = $triGramme.toUpper()
+    
+    $couleur = switch ($_.function) {
+        "informatique" {"cyan"}
+        "comptable" {"yellow"}
+        "accueil" {"blue"}
+        Default {"white"}
+    }
+    Write-Host -ForegroundColor $couleur ($_.firstname+" "+$_.lastname+" ("+$triGramme+") "+$_.phone1)
+}
+```

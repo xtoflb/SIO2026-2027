@@ -30,6 +30,11 @@ Add-DhcpServerInDC -DnsName $NomServeur -IPAddress $AdresseServeur
 # Post-déploiement du service DHCP
 Set-ItemProperty –Path registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ServerManager\Roles\12 –Name ConfigurationState –Value 2
 
+# Effacer l'étendue si elle existe déjà
+if ((get-dhcpserverv4scope -ScopeId $AdresseReseau) -ne $null) {
+    Remove-DhcpServerv4Scope -ScopeId $AdresseReseau -force
+}
+
 # Création d'une étendue
 Add-DhcpServerv4Scope -Name $NomEtendue -StartRange $IPDebut -EndRange $IPFin -SubnetMask $masque
 # Ajout des options de l'étendue
@@ -40,4 +45,6 @@ Set-DhcpServerv4OptionValue -OptionId 51 -ScopeId $AdresseReseau -Value $DuréeD
 Set-DhcpServerv4Scope -ScopeId $AdresseReseau -Name $NomEtendue -State Active
 
 # Vérification de l'étendue créée
-Get-DhcpServerv4Scope```
+
+Get-DhcpServerv4Scope -ScopeId $AdresseReseau
+```

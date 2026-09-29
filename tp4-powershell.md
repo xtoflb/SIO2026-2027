@@ -13,6 +13,11 @@ $NomEtendue = "DHCP_Sodecaf"
 $IPDebut = "172.16.0.150"
 $IPFin = "172.16.0.200"
 $masque = "255.255.255.0"
+$IPPasserelle = "172.16.0.254"
+$DNSPrimaire = "172.16.0.1"
+$DNSsecondaire = "1.1.1.1"
+$DuréeDeBail ="14400"
+$AdresseReseau = "172.16.0.0"
 
 # Installation de la fonctionnalité DHCP sur le serveur
 Install-WindowsFeature -Name DHCP -IncludeManagementTools
@@ -27,4 +32,13 @@ Set-ItemProperty –Path registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ServerM
 
 # Création d'une étendue
 Add-DhcpServerv4Scope -Name $NomEtendue -StartRange $IPDebut -EndRange $IPFin -SubnetMask $masque
+# Ajout des options de l'étendue
+Set-DhcpServerv4OptionDefinition -OptionId 3 -DefaultValue $IPPasserelle
+Set-DhcpServerv4OptionDefinition -OptionId 6 -DefaultValue $DNSPrimaire,$DNSsecondaire
+Set-DhcpServerv4OptionDefinition -OptionId 51 -DefaultValue $DuréeDeBail
+# Activation de l'étendue
+Set-DhcpServerv4Scope -ScopeId $AdresseReseau -Name $NomEtendue -State Active
+
+# Vérification de l'étendue créée
+Get-DhcpServerv4Scope
 ```

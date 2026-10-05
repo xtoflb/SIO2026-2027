@@ -42,8 +42,7 @@ Set-DhcpServerv4OptionDefinition -OptionId 3 -DefaultValue $IPPasserelle
 Set-DhcpServerv4OptionValue -OptionId 6 -ScopeId $AdresseReseau -Value $DNSPrimaire,$DNSsecondaire -Force
 Set-DhcpServerv4OptionValue -OptionId 51 -ScopeId $AdresseReseau -Value $DuréeDeBail
 # Activation de l'étendue
-Set-DhcpServerv4Scope -ScopeId $AdresseReseau 
--Name $NomEtendue -State Active
+Set-DhcpServerv4Scope -ScopeId $AdresseReseau -Name $NomEtendue -State Active
 
 # Vérification de l'étendue créée
 

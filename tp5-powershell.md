@@ -62,14 +62,12 @@ foreach ($user in $users) {
     Default { $OU="ou=Employés,dc=sodecaf,dc=local" }
    }
 
-   New-ADUser -Name "Paul Bismuth" -GivenName Paul -Surname Bismuth `
-  -SamAccountName pbismuth -UserPrincipalName pbismuth@sodecaf.local `
-  -AccountPassword (Read-Host -AsSecureString "Mettez ici votre mot de passe") `
+   New-ADUser -Name "$prenom $nom" -GivenName $prenom -Surname $nom `
+  -SamAccountName $login -UserPrincipalName $email `
+  -AccountPassword (ConvertTo-SecureString $password -AsPlainText -Force) `
   -PassThru `
-  -Path "ou=Employés,dc=sodecaf,dc=local" | Enable-ADAccount
+  -Path $OU | Enable-ADAccount
 
 }
-
-
 
 ```

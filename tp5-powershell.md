@@ -28,17 +28,48 @@ pour la création de comptes AD
 # Importer le module Active Directory
 Import-Module ActiveDirectory
 
+# Import du fichier csv
+$users = Import-Csv -Delimiter ";" -Path '.\utilisateurs sodecaf.csv'
+
 # Création des UO
+<#
 New-ADOrganizationalUnit -Name "Employés" -Path "dc=sodecaf,dc=local" -ProtectedFromAccidentalDeletion $false
 New-ADOrganizationalUnit -Name "Accueil" -Path "ou=Employés,dc=sodecaf,dc=local" -ProtectedFromAccidentalDeletion $false
 New-ADOrganizationalUnit -Name "Comptabilité" -Path "ou=Employés,dc=sodecaf,dc=local" -ProtectedFromAccidentalDeletion $false
 New-ADOrganizationalUnit -Name "Informatique" -Path "ou=Employés,dc=sodecaf,dc=local" -ProtectedFromAccidentalDeletion $false
+#>
 
 # Création des groupes
 
 
 
 # Création des utilisateurs
+foreach ($user in $users) {
+    $nom = $user.lastname
+    $prenom = $user.firstname
+    $email = $user.$email
+    $login = $prenom.substring(0,1)+$nom
+    $login = $login.tolower()
+    $password = "Btssio2017"
+    $service = $user.Function
+
+    Write-Output "$prenom $nom $login $password"
+
+   switch ($service) {
+    "ACCUEIL" { $OU="ou=Accueil,ou=Employés,dc=sodecaf,dc=local" }
+    "INFORMATIQUE" { $OU="ou=Informatique,ou=Employés,dc=sodecaf,dc=local" }
+    "COMPTABLE" { $OU="ou=Comptabilité,ou=Employés,dc=sodecaf,dc=local" }
+    Default { $OU="ou=Employés,dc=sodecaf,dc=local" }
+   }
+
+   New-ADUser -Name "Paul Bismuth" -GivenName Paul -Surname Bismuth `
+  -SamAccountName pbismuth -UserPrincipalName pbismuth@sodecaf.local `
+  -AccountPassword (Read-Host -AsSecureString "Mettez ici votre mot de passe") `
+  -PassThru `
+  -Path "ou=Employés,dc=sodecaf,dc=local" | Enable-ADAccount
+
+}
+
 
 
 ```

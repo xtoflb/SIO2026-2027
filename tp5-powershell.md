@@ -32,12 +32,12 @@ Import-Module ActiveDirectory
 $users = Import-Csv -Delimiter ";" -Path '.\utilisateurs sodecaf.csv'
 
 # Création des UO
-<#
+
 New-ADOrganizationalUnit -Name "Employés" -Path "dc=sodecaf,dc=local" -ProtectedFromAccidentalDeletion $false
 New-ADOrganizationalUnit -Name "Accueil" -Path "ou=Employés,dc=sodecaf,dc=local" -ProtectedFromAccidentalDeletion $false
 New-ADOrganizationalUnit -Name "Comptabilité" -Path "ou=Employés,dc=sodecaf,dc=local" -ProtectedFromAccidentalDeletion $false
 New-ADOrganizationalUnit -Name "Informatique" -Path "ou=Employés,dc=sodecaf,dc=local" -ProtectedFromAccidentalDeletion $false
-#>
+
 
 # Création des groupes
 
@@ -62,12 +62,16 @@ foreach ($user in $users) {
     Default { $OU="ou=Employés,dc=sodecaf,dc=local" }
    }
 
-   New-ADUser -Name "$prenom $nom" -GivenName $prenom -Surname $nom `
-  -SamAccountName $login -UserPrincipalName $email `
-  -AccountPassword (ConvertTo-SecureString $password -AsPlainText -Force) `
-  -PassThru `
-  -Path $OU | Enable-ADAccount
-
+   if (Get-ADUser -Filter {SamAccountName -eq $login}) {
+    Write-Output ("L'utilisateur $nom $prenom existe déjà")
+   }
+   else {
+    New-ADUser -Name "$prenom $nom" -GivenName $prenom -Surname $nom `
+    -SamAccountName $login -UserPrincipalName $email `
+    -AccountPassword (ConvertTo-SecureString $password -AsPlainText -Force) `
+    -PassThru `
+    -Path $OU | Enable-ADAccount
+   }
 }
 
 ```

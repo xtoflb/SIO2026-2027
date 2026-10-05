@@ -31,12 +31,23 @@ Import-Module ActiveDirectory
 # Import du fichier csv
 $users = Import-Csv -Delimiter ";" -Path '.\utilisateurs sodecaf.csv'
 
-# Création des UO
+# Fonction de test et de création d'UO
+Function Creation-UO 
+{
+    param ($nomUO,$cheminUO)
+    $chemin_complet = "ou=$nomUO,$cheminUO"
+    Write-Output $chemin_complet
+    if ((Get-ADOrganizationalUnit -Identity $chemin_complet) -eq $null)
+    { New-ADOrganizationalUnit -Name $nomUO -Path $cheminUO -ProtectedFromAccidentalDeletion $false}   
+    else { Write-Output "UO $nomUO déjà présente"}
+}
 
-New-ADOrganizationalUnit -Name "Employés" -Path "dc=sodecaf,dc=local" -ProtectedFromAccidentalDeletion $false
-New-ADOrganizationalUnit -Name "Accueil" -Path "ou=Employés,dc=sodecaf,dc=local" -ProtectedFromAccidentalDeletion $false
-New-ADOrganizationalUnit -Name "Comptabilité" -Path "ou=Employés,dc=sodecaf,dc=local" -ProtectedFromAccidentalDeletion $false
-New-ADOrganizationalUnit -Name "Informatique" -Path "ou=Employés,dc=sodecaf,dc=local" -ProtectedFromAccidentalDeletion $false
+# Création des UO
+Creation-UO -nomUO "Employés" -cheminUO "dc=sodecaf,dc=local"
+Creation-UO -nomUO "Accueil" -cheminUO "ou=Employés,dc=sodecaf,dc=local"
+#Creation-UO("Accueil","ou=Employés,dc=sodecaf,dc=local")
+#Creation-UO("Comptabilité","ou=Employés,dc=sodecaf,dc=local")
+#Creation-UO("Informatique","ou=Employés,dc=sodecaf,dc=local")
 
 
 # Création des groupes

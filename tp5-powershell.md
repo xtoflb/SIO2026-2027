@@ -103,3 +103,109 @@ foreach ($user in $users) {
 }
 
 ```
+## Script3 : ajout des lecteurs réseaux
+```powershell
+<#
+fichier : TP5-script3-lecteurs.ps1
+Import d'utilisateurs à partir d'un fichier csv
+pour la création de comptes AD
+Ajout des lecteurs réseaux
+#>
+
+# Importer le module Active Directory
+Import-Module ActiveDirectory
+# Importer le module NTFS Security
+Import-Module NTFSSecurity
+
+$data = "c:\data\"
+
+# Import du fichier csv
+$users = Import-Csv -Delimiter ";" -Path '.\utilisateurs sodecaf.csv'
+
+# Fonction de test et de création d'UO
+Function Creation-UO {
+    param ($nomUO,$cheminUO)
+    $chemin_complet = "ou=$nomUO,$cheminUO"
+    if (-not(Get-ADOrganizationalUnit -Filter "DistinguishedName -eq '$chemin_complet'"))
+    { New-ADOrganizationalUnit -Name $nomUO -Path $cheminUO -ProtectedFromAccidentalDeletion $false}   
+    else { Write-Output "UO $nomUO déjà présente"}
+}
+
+# Fonction de création des groupes
+Function Creation-Groupe {
+    param ($nomGroupe,$cheminGroupe)
+    if (-not(Get-ADGroup -Filter "Name -eq '$nomGroupe'"))
+    { New-ADGroup -Name $nomGroupe -Path $cheminGroupe -GroupScope Global -GroupCategory Security}   
+    else { Write-Output "Groupe $nomGroupe déjà présent"}
+}
+
+# Création des UO
+Creation-UO -nomUO "Employés" -cheminUO "dc=sodecaf,dc=local"
+Creation-UO -nomUO "Accueil" -cheminUO "ou=Employés,dc=sodecaf,dc=local"
+Creation-UO -nomUO "Comptabilité" -cheminUO "ou=Employés,dc=sodecaf,dc=local"
+Creation-UO -nomUO "Informatique" -cheminUO "ou=Employés,dc=sodecaf,dc=local"
+
+# Création des groupes
+Creation-Groupe -nomGroupe "Accueil" -cheminGroupe "ou=Accueil,ou=Employés,dc=sodecaf,dc=local"
+Creation-Groupe -nomGroupe "Comptables" -cheminGroupe "ou=Comptabilité,ou=Employés,dc=sodecaf,dc=local"
+Creation-Groupe -nomGroupe "Informaticiens" -cheminGroupe "ou=Informatique,ou=Employés,dc=sodecaf,dc=local"
+
+# Création du dossier des données
+if ((Test-Path $data) -eq $false) {
+    New-Item $data -ItemType Directory
+}
+
+# Création des utilisateurs
+foreach ($user in $users) {
+    $nom = $user.lastname
+    $prenom = $user.firstname
+    $email = $user.$email
+    $login = $prenom.substring(0,1)+$nom
+    $login = $login.tolower()
+    $password = "Btssio2017"
+    $service = $user.Function
+
+    Write-Output "$prenom $nom $login $password"
+
+   switch ($service) {
+    "ACCUEIL" { 
+        $OU="ou=Accueil,ou=Employés,dc=sodecaf,dc=local"
+        $groupe = "Accueil"    
+    }
+    "INFORMATIQUE" { 
+        $OU="ou=Informatique,ou=Employés,dc=sodecaf,dc=local"
+        $groupe = "Informaticiens"
+    }
+    "COMPTABLE" { 
+        $OU="ou=Comptabilité,ou=Employés,dc=sodecaf,dc=local"
+        $groupe = "Comptables"
+     }
+    Default { $OU="ou=Employés,dc=sodecaf,dc=local" }
+   }
+
+   if (Get-ADUser -Filter {SamAccountName -eq $login}) {
+    Write-Output ("L'utilisateur $nom $prenom existe déjà")
+   }
+   else {
+    New-ADUser -Name "$prenom $nom" `
+    -GivenName $prenom `
+    -Surname $nom `
+    -SamAccountName $login `
+    -UserPrincipalName $email `
+    -AccountPassword (ConvertTo-SecureString $password -AsPlainText -Force) `
+    -PassThru `
+    -Path $OU `
+    -Enabled $true
+    -HomeDrive "U:"
+    -HomeDirectory "\\172.16.0.1\data\$login"
+   }
+
+   # Placement des utilisateurs dans les groupes
+   Add-ADGroupMember -Identity $groupe -Members $login
+
+   # Création des dossiers des utilisateurs
+   # à voir demain
+}
+```
+
+

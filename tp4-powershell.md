@@ -38,7 +38,7 @@ if ((get-dhcpserverv4scope -ScopeId $AdresseReseau) -ne $null) {
 # Création d'une étendue
 Add-DhcpServerv4Scope -Name $NomEtendue -StartRange $IPDebut -EndRange $IPFin -SubnetMask $masque
 # Ajout des options de l'étendue
-Set-DhcpServerv4OptionDefinition -OptionId 3 -DefaultValue $IPPasserelle
+Set-DhcpServerv4OptionValue -OptionId 3 -ScopeId $AdresseReseau -Value $IPPasserelle
 Set-DhcpServerv4OptionValue -OptionId 6 -ScopeId $AdresseReseau -Value $DNSPrimaire,$DNSsecondaire -Force
 Set-DhcpServerv4OptionValue -OptionId 51 -ScopeId $AdresseReseau -Value $DuréeDeBail
 # Activation de l'étendue

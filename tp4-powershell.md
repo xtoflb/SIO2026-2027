@@ -48,3 +48,9 @@ Set-DhcpServerv4Scope -ScopeId $AdresseReseau -Name $NomEtendue -State Active
 
 Get-DhcpServerv4Scope -ScopeId $AdresseReseau
 ```
+## Installer les fonctionnalités RSAT
+```powershell
+Add-WindowsCapability -Name Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0 -Online
+Add-WindowsCapability -Name Rsat.Dns.Tools~~~~0.0.1.0 -Online
+Add-WindowsCapability -Name Rsat.GroupPolicy.Management.Tools~~~~0.0.1.0 -Online
+```

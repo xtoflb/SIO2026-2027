@@ -72,9 +72,18 @@ foreach ($user in $users) {
     Write-Output "$prenom $nom $login $password"
 
    switch ($service) {
-    "ACCUEIL" { $OU="ou=Accueil,ou=Employés,dc=sodecaf,dc=local" }
-    "INFORMATIQUE" { $OU="ou=Informatique,ou=Employés,dc=sodecaf,dc=local" }
-    "COMPTABLE" { $OU="ou=Comptabilité,ou=Employés,dc=sodecaf,dc=local" }
+    "ACCUEIL" { 
+        $OU="ou=Accueil,ou=Employés,dc=sodecaf,dc=local"
+        $groupe = "Accueil"    
+    }
+    "INFORMATIQUE" { 
+        $OU="ou=Informatique,ou=Employés,dc=sodecaf,dc=local"
+        $groupe = "Informaticiens"
+    }
+    "COMPTABLE" { 
+        $OU="ou=Comptabilité,ou=Employés,dc=sodecaf,dc=local"
+        $groupe = "Comptables"
+     }
     Default { $OU="ou=Employés,dc=sodecaf,dc=local" }
    }
 
@@ -88,6 +97,9 @@ foreach ($user in $users) {
     -PassThru `
     -Path $OU | Enable-ADAccount
    }
+
+   # Placement des utilisateurs dans les groupes
+   Add-ADGroupMember -Identity $groupe -Members $login
 }
 
 ```

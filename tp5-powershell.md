@@ -40,17 +40,24 @@ Function Creation-UO {
     else { Write-Output "UO $nomUO déjà présente"}
 }
 
+# Fonction de création des groupes
+Function Creation-Groupe {
+    param ($nomGroupe,$cheminGroupe)
+    if (-not(Get-ADGroup -Filter "DistinguishedName -eq '$nomGroupe'"))
+    { New-ADGroup -Name $nomGroupe -Path $cheminGroupe -GroupScope Global -GroupCategory Security}   
+    else { Write-Output "Groupe $nomGroupe déjà présent"}
+}
+
 # Création des UO
 Creation-UO -nomUO "Employés" -cheminUO "dc=sodecaf,dc=local"
 Creation-UO -nomUO "Accueil" -cheminUO "ou=Employés,dc=sodecaf,dc=local"
 Creation-UO -nomUO "Comptabilité" -cheminUO "ou=Employés,dc=sodecaf,dc=local"
 Creation-UO -nomUO "Informatique" -cheminUO "ou=Employés,dc=sodecaf,dc=local"
 
-
-
 # Création des groupes
-
-
+Creation-Groupe -nomGroupe "Accueil" -cheminGroupe "ou=Accueil,ou=Employés,dc=sodecaf,dc=local"
+Creation-Groupe -nomGroupe "Comptables" -cheminGroupe "ou=Comptabilité,ou=Employés,dc=sodecaf,dc=local"
+Creation-Groupe -nomGroupe "Informaticiens" -cheminGroupe "ou=Informatique,ou=Employés,dc=sodecaf,dc=local"
 
 # Création des utilisateurs
 foreach ($user in $users) {

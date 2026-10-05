@@ -43,7 +43,7 @@ Function Creation-UO {
 # Fonction de création des groupes
 Function Creation-Groupe {
     param ($nomGroupe,$cheminGroupe)
-    if (-not(Get-ADGroup -Filter "DistinguishedName -eq '$nomGroupe'"))
+    if (-not(Get-ADGroup -Filter "Name -eq '$nomGroupe'"))
     { New-ADGroup -Name $nomGroupe -Path $cheminGroupe -GroupScope Global -GroupCategory Security}   
     else { Write-Output "Groupe $nomGroupe déjà présent"}
 }

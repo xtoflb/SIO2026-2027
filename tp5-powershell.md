@@ -209,7 +209,40 @@ foreach ($user in $users) {
     }
     else { Write-Output ("Le dossier $login existe déjà")}
 }
-
 ```
 
+## Script4 : script de nettoyage
+```powershell
+<#
+fichier : TP5-nettoyage.ps1
+Script de nettoyage des UO et dossiers
+#>
+
+# Importer le module Active Directory
+Import-Module ActiveDirectory
+
+Function effaceUO {
+    param ($nomUO)
+    try {
+        Remove-ADOrganizationalUnit -Identity "OU=$nomUO,DC=sodecaf,DC=local" -Recursive -Confirm:$false
+        Write-Output ("UO $nomUO effacée")
+    }
+    catch {}
+
+}
+
+Function effaceDossier {
+    param ($nomDossier)
+    try {
+        Remove-Item -Recurse "c:\$nomDossier\*"
+        Write-Output ("Le dossier $nomDossier a été vidé")
+    }
+    catch {}
+
+}
+
+#--------------------------------------------------------------------
+effaceUO -nomUO "Employés"
+effaceDossier -nomDossier "data"
+```
 

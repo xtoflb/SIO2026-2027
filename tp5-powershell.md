@@ -195,8 +195,8 @@ foreach ($user in $users) {
     -AccountPassword (ConvertTo-SecureString $password -AsPlainText -Force) `
     -PassThru `
     -Path $OU `
-    -Enabled $true
-    -HomeDrive "U:"
+    -Enabled $true `
+    -HomeDrive "U:" `
     -HomeDirectory "\\172.16.0.1\data\$login"
    }
 
@@ -204,8 +204,12 @@ foreach ($user in $users) {
    Add-ADGroupMember -Identity $groupe -Members $login
 
    # Création des dossiers des utilisateurs
-   # à voir demain
+   if ((Test-Path ($data+$login)) -eq $false) {
+        New-Item -ItemType Directory -Path $data$login
+    }
+    else { Write-Output ("Le dossier $login existe déjà")}
 }
+
 ```
 
 

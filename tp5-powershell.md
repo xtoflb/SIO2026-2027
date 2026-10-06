@@ -206,6 +206,8 @@ foreach ($user in $users) {
    # Création des dossiers des utilisateurs
    if ((Test-Path ($data+$login)) -eq $false) {
         New-Item -ItemType Directory -Path $data$login
+        Set-NTFSOwner -Path $data$login -Account "sodecaf.local\$login"
+        Add-NTFSAccess -Path $data$login -Account "sodecaf.local\$login" -AccessRights FullControl
     }
     else { Write-Output ("Le dossier $login existe déjà")}
 }

@@ -1,5 +1,6 @@
 # Configuration d'une sandbox
 ## 1. Configuration simple
+```wsb
 <Configuration>
 	<MappedFolder></MappedFolder>
 	<Networking>Enable</Networking>
@@ -11,3 +12,4 @@
 		<Command>PowerShell - Command "Start-Process -FilePath C:\Users\WDAGUtilityAccount\Downloads\7z2604-x64.exe -ArgumentList '/S'"</Command>
 	</LogonCommand>
 </Configuration>
+```

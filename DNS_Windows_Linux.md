@@ -35,12 +35,9 @@ options {
         validate-except {
                 "bzh-boutique.intra";
         };
-
         recursion yes;
          allow-query     { localhost; 192.168.10.0/24; 192.168.20.0/24; 192.168.30.0/24; 192.168.100.0/24; 192.168.200.0/24; };
          allow-recursion { localhost; 192.168.10.0/24; 192.168.20.0/24; 192.168.30.0/24; 192.168.100.0/24; 192.168.200.0/24; };
-
-
         forwarders {
                 1.1.1.1;
         };

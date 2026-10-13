@@ -26,7 +26,7 @@ Postes clients Linux et Windows
           +-- Autres domaines   --> Redirecteur DNS général
 ```
 
-## 1. Configuration du DNS primaire sous Linux
+## Configuration du DNS primaire sous Linux
 Fichier /etc/bind/named.conf.options
 ```conf
 options {
@@ -85,3 +85,6 @@ web1    IN      A       192.168.200.1
 web2    IN      A       192.168.200.2
 www     IN      A       192.168.200.3
 ```
+### Validation DNSSEC et domaine interne
+Lors des tests, les requêtes transmises au DNS Windows échouaient avec `SERVFAIL`, mais réussissaient avec l’option `+cdflag`. Cette comparaison a permis d’identifier un problème de validation DNSSEC.
+La directive `validate-except` exclut le domaine AD interne de cette validation, ainsi que ses sous-domaines, sans désactiver globalement la validation DNSSEC. Dans la configuration retenue ici, cette exception porte sur `bzh-boutique.intra`.

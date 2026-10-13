@@ -12,6 +12,20 @@ Ce document utilise les noms de domaines suivants :
 | BIND `dns1` | `192.168.100.3` | DNS utilisé par les clients, primaire de la zone web et transmission des requêtes AD |
 | BIND `dns2` | `192.168.100.4` | Secondaire prévu pour la zone web ; configuration de transmission AD à ajouter également |
 
+```text
+Postes clients Linux et Windows
+          |
+          | DNS configurés : dns1 et dns2
+          v
+      Serveurs BIND
+          |
+          +-- bzh-boutique.bzh   --> Zone locale des services web
+          |
+          +-- bzh-boutique.intra --> DNS Windows / Active Directory
+          |
+          +-- Autres domaines   --> Redirecteur DNS général
+```
+
 ## 1. Configuration du DNS primaire sous Linux
 Fichier /etc/bind/named.conf.options
 ```conf

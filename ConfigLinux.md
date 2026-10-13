@@ -1,4 +1,4 @@
-# Configuration de base d'une machine Linux
+# Configuration de base d'une machine Linux Debian
 ## 1. Configuration IP
 Éditez le fichier /etc/network/interfaces
 ```bash

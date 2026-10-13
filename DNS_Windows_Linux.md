@@ -1,6 +1,18 @@
 # Cohabitation DNS Windows et Linux
-Le domaine Windows est bzh-boutique.intra
-Le domaine Linux (web) est bzh-boutique.bzh
+## Introduction
+Dans le projet BZH-boutique, les serveurs DNS Linux et Windows remplissent des rôles complémentaires. L’objectif est de permettre aux postes clients Linux et Windows d’utiliser les serveurs BIND comme DNS dans leur configuration IP, tout en permettant aux postes Windows de rejoindre le domaine Active Directory.
+
+Ce document utilise les noms de domaines suivants :
+- `bzh-boutique.intra` : domaine Active Directory, dont la zone DNS est hébergée par les serveurs Windows.
+- `bzh-boutique.bzh` : zone DNS des services web, administrée sur les serveurs Linux BIND.
+
+## Répartition des rôles
+
+| Serveur | Adresse IP | Rôle dans la configuration présentée |
+|---|---|---|
+| DNS Windows / contrôleur de domaine | `192.168.100.1` | Hébergement de la zone `bzh-boutique.intra` et des enregistrements nécessaires à Active Directory |
+| BIND `dns1` | `192.168.100.3` | DNS utilisé par les clients, primaire de la zone web et transmission des requêtes AD |
+| BIND `dns2` | `192.168.100.4` | Secondaire prévu pour la zone web ; configuration de transmission AD à ajouter également |
 ## 1. Configuration du DNS primaire sous Linux
 Fichier /etc/bind/named.conf.options
 ```conf

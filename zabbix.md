@@ -25,3 +25,8 @@ Editez le fichier /etc/zabbix/zabbix_server.conf
 ```bash
 DBPassword=Btssio2017
 ```
+Redémarrez les services
+```bash
+systemctl restart zabbix-server zabbix-agent apache2
+systemctl enable zabbix-server zabbix-agent apache2
+```

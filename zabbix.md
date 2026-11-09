@@ -21,3 +21,7 @@ mysql -uroot -p
 set global log_bin_trust_function_creators = 0;
 quit;
 ```
+Editez le fichier /etc/zabbix/zabbix_server.conf
+```bash
+DBPassword=Btssio2017
+```

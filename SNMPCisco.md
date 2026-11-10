@@ -23,4 +23,5 @@ snmp-server community sodecaf ro SNMP_ACL
 snmp-server host 172.16.0.5 version 2c sodecaf
 access-list 1 permit 172.16.0.0 255.255.255.0
 ip nat inside source list 1 interface G0/0/1 overload
+ip route 0.0.0.0 0.0.0.0 172.17.255.253
 ```
